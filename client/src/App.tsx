@@ -1,9 +1,9 @@
+import Tracker from "./pages/Tracker"
+
 function App() {
 
   return (
-    <div className="App">
-      <h1>Teste</h1>
-    </div>
+    <Tracker />
   )
 }
 

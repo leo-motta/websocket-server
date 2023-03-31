@@ -1,10 +1,12 @@
 const  express = require('express');
 const app = require('express')();
-app.use(express.static(__dirname + '/../public'))
-
-const http = require('http').Server(app);
-const io = require('socket.io')(http);
+const server = require('http').Server(app);
+const io = require('socket.io')(server);
+const cors = require('cors');
 const port = process.env.PORT || 5000;
+
+app.use(cors());
+app.use(express.static(__dirname + '/../public'))
 
 const clients : Array<any>  = [];
 
@@ -16,6 +18,9 @@ io.on('connection', (client) => {
         clients.splice(clients.indexOf(client), 1);
         console.log(`Client disconnected ${client.id}`);
     });
+
+    //TESTE
+    client.on('reply', () => { console.log("a reply detected!")});
 });
 
 app.get('/msg', (req, res) => {
@@ -29,6 +34,6 @@ app.get('/msg', (req, res) => {
     });
 });
 
-http.listen(port, () => {
+server.listen(port, () => {
   console.log(`Socket.IO server running at http://localhost:${port}/`);
 });
