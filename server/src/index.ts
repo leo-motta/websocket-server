@@ -7,6 +7,7 @@ const mqtt = require('mqtt')
 const port = process.env.PORT || 5000;
 
 app.use(cors());
+app.use(express.static(__dirname + '/../public'))
 
 const clients : Array<any>  = [];
 
